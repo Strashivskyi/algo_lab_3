@@ -19,16 +19,17 @@ class Tree:
             for person_loved_beer in person:
                 person_nodes.append(self.Node(None, person_loved_beer))
         else:
-            parent_beers = self.people[-1]
+            parent_beer_nodes = self.people[-1]
+            parent_beers = []
+            for beer_node in parent_beer_nodes:
+                parent_beers.append(beer_node.value)
             for person_loved_beer in person:
-                does_parent_loves = False
-                for parent_loved_node in parent_beers:
-                    if parent_loved_node.value == person_loved_beer:
-                        does_parent_loves = True
-                for parent_loved_node in parent_beers:
-                    if parent_loved_node.value == person_loved_beer:
-                        person_nodes.append(self.Node(parent_loved_node, person_loved_beer))
-                    elif not does_parent_loves:
+                if person_loved_beer in parent_beers:
+                    for parent_loved_node in parent_beer_nodes:
+                        if parent_loved_node.value == person_loved_beer:
+                             person_nodes.append(self.Node(parent_loved_node, person_loved_beer))
+                elif person_loved_beer not in parent_beers:
+                    for parent_loved_node in parent_beer_nodes:
                         person_nodes.append(self.Node(parent_loved_node, person_loved_beer))
         if person_nodes != []:
             self.people.append(person_nodes)
