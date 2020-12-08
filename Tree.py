@@ -30,34 +30,32 @@ class Tree:
                         person_nodes.append(self.Node(parent_loved_node, person_loved_beer))
                     elif not does_parent_loves:
                         person_nodes.append(self.Node(parent_loved_node, person_loved_beer))
-        self.people.append(person_nodes)
+        if person_nodes != []:
+            self.people.append(person_nodes)
 
-    def do_it(self):
-        shortest_way = 0
+    def find_shortest_way(self):
+        shortest_way_len = 0
+        shortest_way = list()
+
         if len(self.people) == 0:
             return 0
-        for beer_node in self.people[-1]:
-            print(self.people[-1])
-            beer = beer_node
+        print("==============================================================================")
+        print("every possible way:")
+        for beer in self.people[-1]:
             way = []
             while not beer is None:
                 way.append(beer.value)
                 beer = beer.parent
+            print(way)
             way = list(dict.fromkeys(way))
 
-            if (len(way) < shortest_way != 0) or (len(way) > shortest_way == 0):
-                shortest_way = len(way)
+            if (len(way) < shortest_way_len != 0) or (len(way) > shortest_way_len == 0):
+                shortest_way_len = len(way)
+                shortest_way = way
 
-        return shortest_way
+        print("shortest way:")
+        print(shortest_way)
+        print("Minimum beer number:")
+        print(shortest_way_len)
 
-
-def string_to_people(input_string):
-    input_string = input_string.split(" ")
-    people = []
-    for i in range(len(input_string)):
-        people.append([])
-        for beer in range(len(input_string[i])):
-            if input_string[i][beer] == "Y":
-                people[i].append(beer + 1)
-
-    return people
+        return shortest_way_len
