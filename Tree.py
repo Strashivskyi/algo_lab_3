@@ -24,39 +24,24 @@ class Tree:
             for beer_node in parent_beer_nodes:
                 parent_beers.append(beer_node.value)
             for person_loved_beer in person:
-                if person_loved_beer in parent_beers:
-                    for parent_loved_node in parent_beer_nodes:
-                        if parent_loved_node.value == person_loved_beer:
-                             person_nodes.append(self.Node(parent_loved_node, person_loved_beer))
-                elif person_loved_beer not in parent_beers:
-                    for parent_loved_node in parent_beer_nodes:
-                        person_nodes.append(self.Node(parent_loved_node, person_loved_beer))
+                for parent_loved_node in parent_beer_nodes:
+                    if person_loved_beer in parent_beers and parent_loved_node.value != person_loved_beer:
+                        continue
+                    person_nodes.append(self.Node(parent_loved_node, person_loved_beer))
         if person_nodes != []:
             self.people.append(person_nodes)
 
     def find_shortest_way(self):
         shortest_way_len = 0
-        shortest_way = list()
-
         if len(self.people) == 0:
             return 0
-        print("==============================================================================")
-        print("every possible way:")
         for beer in self.people[-1]:
             way = []
             while not beer is None:
                 way.append(beer.value)
                 beer = beer.parent
-            print(way)
             way = list(dict.fromkeys(way))
-
-            if (len(way) < shortest_way_len != 0) or (len(way) > shortest_way_len == 0):
+            if len(way) < shortest_way_len or shortest_way_len == 0:
                 shortest_way_len = len(way)
-                shortest_way = way
-
-        print("shortest way:")
-        print(shortest_way)
-        print("Minimum beer number:")
-        print(shortest_way_len)
 
         return shortest_way_len
