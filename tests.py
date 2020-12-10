@@ -42,7 +42,6 @@ class TestTree(unittest.TestCase):
         tree = Tree()
         for person in people:
             tree.add_person(person)
-
         ways = tree.find_shortest_way()
         self.assertEqual(0, ways)
 

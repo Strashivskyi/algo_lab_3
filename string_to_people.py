@@ -12,5 +12,4 @@ def string_to_people(input_string):
                 for beer in range(len(input_string[person])):
                     if input_string[person][beer] == "Y":
                         people[person].append(beer + 1)
-            
     return people

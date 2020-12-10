@@ -28,7 +28,7 @@ class Tree:
                     if person_loved_beer in parent_beers and parent_loved_node.value != person_loved_beer:
                         continue
                     person_nodes.append(self.Node(parent_loved_node, person_loved_beer))
-        if person_nodes != []:
+        if person_nodes:
             self.people.append(person_nodes)
 
     def find_shortest_way(self):
@@ -37,11 +37,10 @@ class Tree:
             return 0
         for beer in self.people[-1]:
             way = []
-            while not beer is None:
+            while beer is not None:
                 way.append(beer.value)
                 beer = beer.parent
             way = list(dict.fromkeys(way))
             if len(way) < shortest_way_len or shortest_way_len == 0:
                 shortest_way_len = len(way)
-
         return shortest_way_len
